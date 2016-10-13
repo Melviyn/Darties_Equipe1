@@ -35,4 +35,6 @@ $SASMacroConf = array(
 	)
 );
 
+
+
 //http://ens-dsiva-0002.univ-ubs.fr/SASStoredProcess/do?_username=DARTIES1-2015&_password=P@ssw0rd&_program=%2FUser+Folders%2FDARTIES1-2015%2FMy+Folder%2FSTP%2FmacroDetails&_action=execute,nobanner&I_INDICATEUR=1&I_ENSEIGNE=1&I_FAMPROD=1&I_TEMPS=2015_1_2015&I_REGION=0

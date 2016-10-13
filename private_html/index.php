@@ -7,7 +7,6 @@ require _.'/vendor/autoload.php';
 require _.'/app/_config.php';
 
 date_default_timezone_set('Europe/Paris');
-
 $app = new App($slimConf);
 ORM::configure($idiormConf);
 SASMacro::configure($SASMacroConf);
@@ -30,7 +29,8 @@ foreach($urlPath as $value) {
 }
 
 $app->user = User::loadFromCookie();
-	
+
+
 // Route
 $app->get('/', function() use ($app) {
 
@@ -49,7 +49,6 @@ $app->get('/login', function() use ($app) {
 
 $app->post('/login', function() use ($app) {
 	$user = User::login($app->request->post('email'), $app->request->post('mdp'));
-	
 	if (is_object($user)) {
 		$app->redirect($app->urlPath.'/');
 	}
@@ -64,17 +63,27 @@ $app->get('/logout', function() use ($app) {
 	$app->redirect($app->urlPath.'/index.php/login');
 });
 
-$app->get('/test', function() use ($app) {		
+$app->get('/test', function() use ($app) {
 	var_dump(SASMacroHistorique::call(
 		array ( 'I_ENSEIGNE' => 0, 'I_INDICATEUR' => 0, 'I_CUMUL' => 0, 'I_FAMPROD' => 0, 'I_TEMPS' => '2015_1_2015', 'I_REGION' => 508)
 	));
+});
+
+$app->get('/admin', function() use ($app) {
+  $admin = User::afficher_table();
+  $app->render('/admin.html', array('data' => $admin));
+});
+
+$app->post('/admin', function() use ($app) {
+  User::update($app->request->post('id'), $app->request->post('pwd'));
+  $app->redirect($app->urlPath.'/index.php/admin');
 });
 
 $app->group('/ajax', function() use ($app) {
 	$app->response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
 	$app->response->headers->set('Pragma', 'no-cache');
 	$app->response->headers->set('Expires', '0');
-	
+
 	$app->group('/tab', function() use ($app) {
 
 		$app->post('/accueil', function() use ($app) {
@@ -84,16 +93,16 @@ $app->group('/ajax', function() use ($app) {
 
 		$app->post('/historique', function() use ($app) {
 			echo SASMacroHistorique::call($app->request->post());
-		});	
-		
+		});
+
 		$app->post('/palmares', function() use ($app) {
 			echo SASMacroPalmares::call($app->request->post());
-		});		
-	
+		});
+
 		$app->post('/details', function() use ($app) {
 			echo SASMacroDetails::call($app->request->post());
 		});
-		
+
 	});
 });
 

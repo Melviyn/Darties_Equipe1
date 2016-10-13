@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MDP/ID</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>UTILISATEUR DARTIES</h2>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Identifiant</th>
+      <th>Adresse mail</th>
+      <th>Mot de passe</th>
+      <th>Modification</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in data %}
+    <tr>
+      <td>{{user.id}}</td>
+      <td>{{user.mail}}</td>
+      <td>{{user.password}}</td>
+      <td> <form action="{{ urlPath }}/index.php/admin" method="post">
+        <p><input type="text" name="id" placeholder="id" class="form-control"></p>
+        <p><input type="password" name="pwd" placeholder="Password" class="form-control"></p>
+        <button type="submit" class="btn btn-danger center-block" >Modifier</button>
+      </form></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</body>
+</html>
