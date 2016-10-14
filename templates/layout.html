@@ -90,23 +90,7 @@
                         <h3 class="panel-title" id="ajax_accueil_tabtitle"></h3>
                       </div>
                       <div class="panel-body panel-table" id="ajax_accueil_table">
-                      </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">Informations</h3>
-                      </div>
-                      <div class="panel-body">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis facilisis massa, congue tristique justo convallis aliquet. Pellentesque laoreet, purus sit amet blandit fringilla, eros sapien euismod lacus, sit amet tincidunt justo libero tempus
-                          eros. Proin mattis leo arcu, et luctus lectus imperdiet et. In commodo ipsum ut aliquam malesuada. Cras dapibus volutpat velit a gravida. Integer volutpat pulvinar turpis, a sodales magna lacinia at. Praesent dignissim efficitur
-                          quam eu elementum.
-                        </p>
-                        <p>
-                          Phasellus bibendum odio erat, quis tristique ipsum porta at. Aliquam erat volutpat. Donec nulla velit, bibendum ac felis quis, malesuada commodo metus. Ut eget consequat dolor. In auctor non ex eget finibus. Proin sit amet nisi enim. Class aptent taciti
-                          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec vitae nisl finibus, accumsan nunc et, vulputate nibh. Cras quis neque varius, ultrices nunc interdum, molestie odio. In vitae sollicitudin nisl.
-                        </p>
+                        {% include '/macro/accueil/table.html' %}
                       </div>
                     </div>
 
@@ -133,6 +117,7 @@
                     <h3 class="panel-title" id="ajax_historique_tabtitle"></h3>
                   </div>
                   <div class="panel-body  panel-table" id="ajax_historique_table">
+                    {% include '/macro/historique/table.html' %}
                   </div>
                 </div>
 
