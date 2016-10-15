@@ -87,9 +87,8 @@ $app->group('/ajax', function() use ($app) {
 
 	$app->group('/tab', function() use ($app) {
 		$app->post('/accueil', function() use ($app) {
-      var_dump($app->request->post());
       $db = ORM::get_db();
-      $accueil = SqlMacroAccueil::call($app->request->post(),$db);
+      echo json_encode(SqlMacroAccueil::call($app->request->post(),$db));
 		});
 
 		$app->post('/historique', function() use ($app) {
