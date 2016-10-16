@@ -87,6 +87,7 @@ $(document)
 
 		.fail(function(response) {
 			console.log("fail");
+			$('#ajax_'+tab+'_table').html(response);
 		});
 	});
 

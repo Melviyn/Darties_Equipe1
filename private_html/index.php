@@ -37,7 +37,6 @@ $app->get('/', function() use ($app) {
 	$date_maj = ORM::for_table('FAITS_VENTES')->max('DATE_MAJ');
 	if (User::isLogged()) {
 		$app->render('/layout.html', array('date_maj' => $date_maj));
-    var_dump($app->urlPath);
 	}
 	else {
 		$app->redirect($app->urlPath.'/index.php/login');
@@ -92,11 +91,8 @@ $app->group('/ajax', function() use ($app) {
 		});
 
 		$app->post('/historique', function() use ($app) {
-
-      //$test = SqlMacroAccueil::call($app->request->post());
-      var_dump($test);
-			//echo SASMacroHistorique::call($app->request->post());
-      //echo "string";
+      $db = ORM::get_db();
+      echo json_encode(SqlMacroHistorique::call($app->request->post(),$db));
 		});
 
 		$app->post('/palmares', function() use ($app) {

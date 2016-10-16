@@ -84,7 +84,7 @@ class SqlMacroAccueil extends Model{
 
 		$obj->exec($sql);
 		// Ajout d'une ligne de total
-		$sql = "CREATE TABLE Accueil".$user." as
+		$sql = "CREATE TEMPORARY TABLE Accueil".$user." as
 		select * from transi_accueil".$user."
 		Union all
 		select 'Total' as Total,
