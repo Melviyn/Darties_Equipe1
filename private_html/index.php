@@ -36,7 +36,11 @@ $app->get('/', function() use ($app) {
 
 	$date_maj = ORM::for_table('FAITS_VENTES')->max('DATE_MAJ');
 	if (User::isLogged()) {
-		$app->render('/layout.html', array('date_maj' => $date_maj));
+      $admin = User::table_admin();
+      $user = User::table_user();
+      $profil_dispo = Profil::profil_dispo();
+		  $app->render('/layout.html', array('date_maj' => $date_maj,'data' => $admin,'data1' => $user,'data2'=>$profil_dispo));
+
 	}
 	else {
 		$app->redirect($app->urlPath.'/index.php/login');
@@ -69,14 +73,30 @@ $app->get('/test', function() use ($app) {
 	));
 });
 
-$app->get('/admin', function() use ($app) {
-  $admin = User::afficher_table();
+$app->get('/', function() use ($app) {
+  $admin = User::table_admin();
   $app->render('/admin.html', array('data' => $admin));
 });
 
-$app->post('/admin', function() use ($app) {
-  User::update($app->request->post('id'), $app->request->post('pwd'));
-  $app->redirect($app->urlPath.'/index.php/admin');
+
+$app->get('/', function() use ($app) {
+	$app->render('/layout.html');
+});
+
+$app->post('/', function() use ($app) {
+  if ( $app->request->post('sel2') != null &&  $app->request->post('pwd') != null){
+    User::update_user($app->request->post('id'), $app->request->post('pwd'));
+    Profil::update_profil($app->request->post('id'),$app->request->post('sel2'));
+    $app->redirect($app->urlPath.'/');
+  }
+  else if($app->request->post('sel2') != null) {
+    Profil::update_profil($app->request->post('id'),$app->request->post('sel2'));
+    $app->redirect($app->urlPath.'/');
+  }
+  else if($app->request->post('pwd') != null){
+      User::update_user($app->request->post('id'), $app->request->post('pwd'));
+      $app->redirect($app->urlPath.'/');
+  }
 });
 
 $app->group('/ajax', function() use ($app) {
