@@ -37,7 +37,9 @@
               <li role="presentation"><a href="#historique" aria-controls="historique" role="tab" data-toggle="tab">Historique</a></li>
               <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Détails</a></li>
 			  {% if user.isAdmin %}
-			  <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Admin</a></li>
+			  <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Administrateur</a></li>
+        {% else %}
+        <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Utilisateur</a></li>
 			  {% endif %}
             </ul>
             <ul class="nav nav-tabs" id="right-tabs" style="float:right">
@@ -152,16 +154,133 @@
 
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Administration</h3>
+                    <h3 class="panel-title">Administrateur</h3>
                   </div>
                   <div class="panel-body panel-table">
-					<ul>
-						<li>Lien1</li>
-						<li>Lien2</li>
-					</ul>
+                      <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Identifiant</th>
+                          <th>Nom</th>
+                          <th>Prénom</th>
+                          <th>Profil</th>
+                          <th>Adresse mail</th>
+                          <th>Mot de passe</th>
+                          <th>DateMaj_USER</th>
+                          <th>Modification</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in data %}
+                        <tr>
+                          <td  align="left">{{user.id}}</td>
+                          <td  align="center">{{user.nom}}</td>
+                          <td  align="center">{{user.prenom}}</td>
+                          <td  align="center">{{user.lib_profil}}</td>
+                          <td  align="center">{{user.mail}}</td>
+                          <td  align="center">{{user.password}}</td>
+                            <td  align="center">{{user.datemaj_user}}</td>
+                          <td>
+                            <form action="{{ urlPath }}/" method="post">
+                              <div id="{{user.id}}" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <p><h3 style="text-align: center; color: rba(102,205,0);">Mot de passe &amp Libellé profil</h3></p>
+                                  <!--<p><input type="text" name="id" placeholder="id" class="form-control" value="{{user.id}}" readonly></p>-->
+                                    <p><input type="password" name="pwd" placeholder="{{user.password}}" class="form-control" ></p>
+                                    <p><select class="form-control" name="sel2">
+                                    {% if data2 is empty %}
+                                          <option disabled selected>Aucun profil disponible</option>
+                                    {% else %}
+                                          <option></option>
+                                          {% for user in data2 %}
+                                          <option>{{user.lib_profil}}</option>
+                                          {% endfor %}
+                                    {% endif %}
+                                    </select></p>
+                                    <button type="submit" class="btn btn-success center-block">Valider</button>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                          </form>
+                          <p><button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#{{user.id}}">Modifier</button></p>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+              </div>
+        {% else %}
+        <div role="tabpanel" class="tab-pane" id="admin">
 
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Utilisateur</h3>
+                  </div>
+                  <div class="panel-body panel-table">
+                      <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Identifiant</th>
+                          <th>Nom</th>
+                          <th>Prénom</th>
+                          <th>Profil</th>
+                          <th>Adresse mail</th>
+                          <th>Mot de passe</th>
+                          <th>DateMaj_USER</th>
+                          <th>Modification</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in data1 %}
+                        <tr>
+                          <td  align="left">{{user.id}}</td>
+                          <td  align="center">{{user.nom}}</td>
+                          <td  align="center">{{user.prenom}}</td>
+                          <td  align="center">{{user.lib_profil}}</td>
+                          <td  align="center">{{user.mail}}</td>
+                          <td  align="center">{{user.password}}</td>
+                            <td  align="center">{{user.datemaj_user}}</td>
+                          <td>
+                            <form action="{{ urlPath }}/" method="post">
+                              <div id="{{user.id}}" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <p><h3 style="text-align: center;">Mot de passe &amp Libellé profil</h3></p>
+                                    <!--<p><input type="text" name="id" placeholder="id" class="form-control" value="{{user.id}}" readonly></p>-->
+                                    <p><input type="password" name="pwd" placeholder="{{user.password}}" class="form-control" ></p>
+                                    <p><select class="form-control" name="sel2">
+                                    {% if data2 is empty %}
+                                          <option disabled selected>Aucun profil disponible</option>
+                                    {% else %}
+                                          <option></option>
+                                          {% for user in data2 %}
+                                          <option>{{user.lib_profil}}</option>
+                                          {% endfor %}
+                                    {% endif %}
+                                    </select></p>
+                                    <button type="submit" class="btn btn-success center-block">Valider</button>
+                                  </div>
+
+                                </div>
+                              </div>
+                              </div>
+                          </form>
+                          <p><button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#{{user.id}}">Modifier</button></p>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
 			  {% endif %}
 			</div>

@@ -6,6 +6,19 @@ class Profil extends Model
 {
 	public static $_table = 'profil';
 	public static $_id_column = 'ID_PROFIL';
+
+	public static function update_profil ($id,$lib_profil){
+
+		$user = Profil::find_one($id);
+		$user->set('lib_profil',$lib_profil);
+		$user->save();
+
+	}
+	public static function profil_dispo(){
+
+			$profil = ORM::for_table('profil')->raw_query("SELECT lib_profil FROM profil WHERE id_profil NOT IN (SELECT id_profil FROM utilisateur)")->find_array();
+			return $profil;
+	}
 }
 
 class User extends Model
@@ -103,18 +116,33 @@ class User extends Model
 		return false;
 	}
 
-	public static function afficher_table () {
+	public static function table_admin () {
 
-		$user = User::select('mail')->select('password')->select('id')->order_by_asc('id')->find_array();
+		$user = ORM::for_table('utilisateur')->select_many('mail','password','lib_profil','id','nom','prenom','datemaj_user')
+		->join('profil',array('profil.id_profil', '=', 'utilisateur.id_profil'))
+		->order_by_asc('id')
+		->find_array();
 		return $user;
 
 	}
 
-	public static function update ($id,$mdp){
+	public static function table_user () {
+		$app = App::getInstance();
+		$user = ORM::for_table('utilisateur')->select_many('mail','password','lib_profil','id','nom','prenom','datemaj_user')
+		->join('profil',array('profil.id_profil', '=', 'utilisateur.id_profil'))
+		->where('id_profil', $app->getCookie('USER_ID'))
+		->order_by_asc('id')
+		->find_array();
+		 return $user;
+
+	}
+
+	public static function update_user ($id,$mdp){
 
 		$user = User::find_one($id);
 		$user->set('password',$mdp);
 		$user->save();
 
 	}
+	
 }
