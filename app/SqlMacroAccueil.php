@@ -32,7 +32,7 @@ class SqlMacroAccueil extends Model{
 
 
     // Filtrage selon la valeur des invites
-    $sql = "CREATE TEMPORARY TABLE transi".$user." as
+    $sql = "CREATE TABLE transi".$user." as
       SELECT * from data_0
       WHERE id_enseigne in(select id_enseigne from requete_enseigne where code_enseigne='".$enseigne."')
       AND id_temps in(select id_temps from requete_temps_0 where code='".$temps."')
@@ -87,7 +87,7 @@ class SqlMacroAccueil extends Model{
 		$sql = "CREATE TEMPORARY TABLE Accueil".$user." as
 		select * from transi_accueil".$user."
 		Union all
-		select 'Total' as Total,
+		select 'Total' as Totaux,
 								 sum(CA_Reel) as CA_Reel,
 								 sum(CA_Objectif) as CA_Objectif,
 								 sum(Ventes_Reel) as Ventes_Reel,

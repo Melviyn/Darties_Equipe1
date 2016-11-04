@@ -185,7 +185,7 @@ class SqlMacroHistorique extends Model{
     // Ajout d'une ligne de total et restitution du tableau
     $sql = "CREATE TABLE historique_final".$user." as select * from historique1".$user."
     Union all
-    select 'Total' as Total,
+    select 'Total' as Totaux,
     						 sum(SUM_of_VENTES_OBJECTIF_prec) as SUM_of_VENTES_OBJECTIF_prec,
     						 sum(SUM_of_VENTES_REEL_prec) as SUM_of_VENTES_REEL_prec,
     						 ((sum(SUM_of_VENTES_REEL_prec)-sum(SUM_of_VENTES_OBJECTIF_prec))/sum(SUM_of_VENTES_OBJECTIF_prec)) as Ecart_ventes_prec,
@@ -201,11 +201,33 @@ class SqlMacroHistorique extends Model{
     from HISTORIQUE2".$user;
 
     $obj->exec($sql);
-
     //recupération des labels
 
-    $data = ORM::for_table('historique_final'.$user)->find_array();
-		$table = $app->view()->render("/macro/historique/table.html", array('data' => $data));
+		//indicateur
+		$indicateurArray = ORM::for_table('select_Indicateur')->where('code',$indic)->find_array();
+		$indicateur = $indicateurArray[0]['LIB_IND'];
+
+		//Famille produit
+		$famArray = ORM::for_table('select_famille_produit')->where('code',$famprod)->find_array();
+		$famille = $famArray[0]['LIB_FAMILLE'];
+
+		//période actuelle
+		$anneeActu = ((int)substr($temps,0,4));
+		$anneePrec = ((int)substr($temps,0,4))-1;
+
+		//zone geo
+		$geoArray = ORM::for_table('select_zone_geo')->where('code',$geo)->find_array();
+		$geographie = $geoArray[0]['LIBELLE'];
+
+		$label = array(
+			"geo" => $geographie,
+			"indic" => $indicateur,
+			"famille"=> $famille,
+			"anneePrec" => $anneePrec,
+			"anneeActu =>" =>$anneeActu,
+		);
+		$data = ORM::for_table('historique_final'.$user)->find_array();
+		$table = $app->view()->render("/macro/historique/table.html", array('data' => $data,'libelle' => $label));
 
 		return $table;
 
