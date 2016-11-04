@@ -2,14 +2,14 @@
             <thead>
               <tr>
                 <td rowspan="3" data-sorter="false">Famille de produit</td>
-                <th colspan="6" data-sorter="false">{{ libelle.0 }}</th>
-                <th colspan="6" data-sorter="false">{{ libelle.1 }}</th>
+                <th colspan="6" data-sorter="false">{{ libelle.anneePrec }}</th>
+                <th colspan="6" data-sorter="false">{{ libelle.anneeActu }}</th>
               </tr>
               <tr>
-                <th colspan="3" data-sorter="false">{{ libelle.2 }}</th>
-                <th colspan="3" data-sorter="false">{{ libelle.2 }} cumulé</th>
-                <th colspan="3" data-sorter="false">{{ libelle.2 }}</th>
-                <th colspan="3" data-sorter="false">{{ libelle.2 }} cumulé</th>
+                <th colspan="3" data-sorter="false">{{ libelle.indic }}</th>
+                <th colspan="3" data-sorter="false">{{ libelle.indic }} cumulé</th>
+                <th colspan="3" data-sorter="false">{{ libelle.indic }}</th>
+                <th colspan="3" data-sorter="false">{{ libelle.indic }} cumulé</th>
               </tr>
               <tr>
                 <th>Réel</th>
@@ -45,21 +45,4 @@
               </tr>
 	{% endfor %}
             </tbody>
-            <tfoot>
-              <tr>
-                <th>Totaux</th>
-                <td data-mnt="{{ total.1 }}">{{ total.1 }}</td>
-                <td data-mnt="{{ total.2 }}">{{ total.2 }}</td>
-                <td data-op="%">{{ total.3 }}</td>
-                <td data-mnt="{{ total.4 }}">{{ total.4 }}</td>
-                <td data-mnt="{{ total.5 }}">{{ total.5 }}</td>
-                <td data-op="%">{{ total.6 }}</td>
-                <td data-mnt="{{ total.7 }}">{{ total.7 }}</td>
-                <td data-mnt="{{ total.8 }}">{{ total.8 }}</td>
-                <td data-op="%">{{ total.9 }}</td>
-                <td data-mnt="{{ total.10 }}">{{ total.10 }}</td>
-                <td data-mnt="{{ total.11 }}">{{ total.11 }}</td>
-                <td data-op="%">{{ total.12 }}</td>
-              </tr>
-            </tfoot>
 </table>
