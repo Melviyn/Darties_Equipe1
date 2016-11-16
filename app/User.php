@@ -144,5 +144,5 @@ class User extends Model
 		$user->save();
 
 	}
-	
+
 }

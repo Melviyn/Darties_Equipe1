@@ -6,6 +6,8 @@ define('_', dirname(__DIR__));
 require _.'/vendor/autoload.php';
 require _.'/app/_config.php';
 
+require _.'/vendor/autoload.php';
+
 date_default_timezone_set('Europe/Paris');
 $app = new App($slimConf);
 ORM::configure($idiormConf);
@@ -34,7 +36,7 @@ $app->user = User::loadFromCookie();
 // Route
 $app->get('/', function() use ($app) {
 
-	$date_maj = ORM::for_table('FAITS_VENTES')->max('DATE_MAJ');
+	$date_maj = ORM::for_table('faits_ventes')->max('date_maj');
 	if (User::isLogged()) {
       $admin = User::table_admin();
       $user = User::table_user();

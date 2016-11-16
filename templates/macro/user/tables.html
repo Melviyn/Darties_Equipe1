@@ -1,0 +1,48 @@
+<div role="tabpanel" class="tab-pane" id="admin">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Utilisateur</h3>
+          </div>
+          <div class="panel-body panel-table">
+
+
+            <div class="container">
+              <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Identifiant</th>
+                  <th>Adresse mail</th>
+                  <th>Mot de passe</th>
+                  <th>Modification</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in data1 %}
+                <tr>
+                  <td>{{user.id}}</td>
+                  <td>{{user.mail}}</td>
+                  <td>{{user.password}}</td>
+                  <td>
+                    <form action="{{ urlPath }}/index.php/updateUser" method="post">
+                    <p><input type="text" name="id" placeholder="id" class="form-control" value="{{user.id}}" readonly></p>
+                    <p><input type="password" name="pwd" placeholder="New_Password" class="form-control"></p>
+                    <p><select class="form-control" name="sel1" readonly>
+                      <option>{{user.lib_profil}}</option>
+                    </select></p>
+                    <p><select class="form-control" name="sel2">
+                            <option></option>
+                      <option>test</option>
+                    </select></p>
+                    <p><button type="submit" class="btn btn-danger center-block" >Modifier</button></p>
+                  </form>
+                </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
