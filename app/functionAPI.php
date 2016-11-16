@@ -4,7 +4,7 @@ namespace App;
 class functionAPI extends Model{
 
   public static function getUser($token){
-    return ORM::for_table('utilisateur')->where('apikey', $token)->find_array();
+    return ORM::for_table('utilisateur')->select_many('id_profil','nom','prenom','password','mail','apikey')->where('apikey', $token)->find_array();
   }
 
   public static function login($email,$password){
