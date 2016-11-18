@@ -14,7 +14,7 @@ import retrofit.http.Path;
 public interface ApiInterface {
 
     //A modifier selon le host associer a votre pc
-public static final String ENDPOINT = "http://10.181.212.200/melvin/private_html";
+public static final String ENDPOINT = "http://192.168.43.233/melvin/private_html";
 
     @GET("/apiCall.php/login/{mail}&{password}")
     void listApiAsync(@Path("mail")String mail,

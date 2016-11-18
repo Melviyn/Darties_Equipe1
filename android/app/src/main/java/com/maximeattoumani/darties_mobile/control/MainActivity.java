@@ -60,11 +60,7 @@ public class MainActivity extends AppCompatActivity {
                                         Intent i = new Intent(getApplicationContext(), UserActivity.class);
                                         startActivity(i);
                                         finish();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Aucune réponse obtenu, page vide", Toast.LENGTH_LONG).show();
                                     }
-                                } else if (response.getStatus() == 404) {
-                                    Toast.makeText(MainActivity.this, "ERREUR 404", Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -72,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                             public void failure(RetrofitError error) {
 
                                 Log.d("Error", error.getMessage());
-                                Toast.makeText(MainActivity.this, "Impossible de récuperer les informations", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Impossible de récuperer les informations, ERREUR "+error.getResponse().getStatus(), Toast.LENGTH_LONG).show();
                             }
 
                         });

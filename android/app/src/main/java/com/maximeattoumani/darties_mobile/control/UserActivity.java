@@ -72,9 +72,6 @@ public class UserActivity extends AppCompatActivity {
                                     nom.setText(Html.fromHtml("Nom : <b>" + user.getNom() + "</b>"));
                                     prenom.setText(Html.fromHtml("Prénom : <b>" + user.getPrenom() + "</b>"));
                                 }
-                                else {
-                                    Toast.makeText(UserActivity.this, "Aucune réponse obtenu, page vide", Toast.LENGTH_LONG).show();
-                                }
                             }
 
                         }
@@ -83,12 +80,12 @@ public class UserActivity extends AppCompatActivity {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("Error", error.getMessage());
-                        Toast.makeText(UserActivity.this, "Impossible de récuperer les informations", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UserActivity.this, "Impossible de récuperer les informations, ERREUR "+error.getResponse().getStatus(), Toast.LENGTH_LONG).show();
                     }
                 });
 
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                 } catch (Exception e) {
                 }
                 ringProgressDialog.dismiss();
