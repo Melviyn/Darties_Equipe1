@@ -121,41 +121,44 @@ $app->get('/getDimFamilleProduit/:token', function($token){
 
 });
 
-$app->get('/getFaitsVentes', function(){
+$app->get('/getFaitsVentes/:token', function($token){
   $app = \Slim\Slim::getInstance();
-  try {
-      //requête sql pour récupérer info faits ventes
-      if($profil) {
+      $faitVentes = functionAPI::getFaitsVentes($token);
+      if($faitVentes) {
           $app->response->setStatus(200);
           $app->response()->headers->set('Content-Type', 'application/json');
-          echo json_encode($profil);
+          echo json_encode($faitVentes);
       } else {
-          throw new PDOException('No records found.');
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
       }
-
-  } catch(PDOException $e) {
-      $app->response()->setStatus(404);
-      echo '{"error":{"text":'. $e->getMessage() .'}}';
-  }
 });
 
-$app->get('/getDimMag', function(){
+$app->get('/getDimMag/:token', function($token){
   $app = \Slim\Slim::getInstance();
-  try {
-      //requête sql pour récupérer info faits ventes
-      if($profil) {
+      $dimMag = functionAPI::getDimMag($token);
+      if($dimMag) {
           $app->response->setStatus(200);
           $app->response()->headers->set('Content-Type', 'application/json');
-          echo json_encode($profil);
+          echo json_encode($dimMag);
       } else {
-          throw new PDOException('No records found.');
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
       }
-
-  } catch(PDOException $e) {
-      $app->response()->setStatus(404);
-      echo '{"error":{"text":'. $e->getMessage() .'}}';
-  }
 });
 
-
+$app->get('/tabAccueil/:token&:select_temps&:select_zone_geo&:select_enseigne',
+  function($token,$select_temps,$select_geo,$select_ens){
+    $app = \Slim\Slim::getInstance();
+    $obj = ORM::get_db();
+    $tab = functionAPI::getTabAccueil($obj,$token,$select_temps,$select_geo,$select_ens);
+    if($tab) {
+        $app->response->setStatus(200);
+        $app->response()->headers->set('Content-Type', 'application/json');
+        echo json_encode($tab);
+    } else {
+      $app->response()->setStatus(404);
+      echo '{"error":{"text":"le token semble incorrect"}}';
+    }
+  });
 $app->run();
