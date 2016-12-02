@@ -134,6 +134,32 @@ $app->get('/getFaitsVentes/:token', function($token){
       }
 });
 
+
+/**$app->get('/test/:token&id_mag&id_prod&id_temps&venteObj&VenteReel&CaObj&CaReel&MargeObj&MargeReel', function($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel){
+  $app = \Slim\Slim::getInstance();
+      $faitVentes = functionAPI::setFaitsVentes($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel);
+      if($faitVentes) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($faitVentes);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+});*/
+$app->get('/test/:token&:id_mag&:id_prod&:id_temps&:venteObj&:VenteReel&:CaObj&:CaReel&:MargeObj&:MargeReel', function($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel){
+  $app = \Slim\Slim::getInstance();
+  $obj = ORM::get_db();
+      $faitVentes = functionAPI::setFaitsVentes($obj,$token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel);
+      if($faitVentes) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($faitVentes);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+});
 $app->get('/getDimMag/:token', function($token){
   $app = \Slim\Slim::getInstance();
       $dimMag = functionAPI::getDimMag($token);
@@ -161,4 +187,21 @@ $app->get('/tabAccueil/:token&:select_temps&:select_zone_geo&:select_enseigne',
       echo '{"error":{"text":"le token semble incorrect"}}';
     }
   });
+
+
+  $app->get('/tabHisto/:token&:famprof&:indic&:select_temps&:select_zone_geo&:select_enseigne',
+    function($token,$famprod,$indic,$select_temps,$select_geo,$select_ens){
+      $app = \Slim\Slim::getInstance();
+      $obj = ORM::get_db();
+      $tab = functionAPI::getTabHisto($obj,$token,$famprod,$indic,$select_temps,$select_geo,$select_ens);
+
+      if($tab) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($tab);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+    });
 $app->run();
