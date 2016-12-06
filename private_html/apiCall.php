@@ -3,9 +3,8 @@
 namespace App;
 
 define('_', dirname(__DIR__));
-require _.'\vendor\autoload.php';
-require _.'\app\_config.php';
-require _.'\vendor\slim\slim\Slim\Slim.php';
+require _.'/vendor/autoload.php';
+require _.'/app/_config.php';
 
 date_default_timezone_set('Europe/Paris');
 $app = new App($slimConf);

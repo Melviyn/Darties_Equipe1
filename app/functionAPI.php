@@ -182,7 +182,7 @@ class functionAPI extends Model{
         		// Tableau dédié aux valeurs de marge
         		$sql = "CREATE TEMPORARY TABLE Accueil_MA".$token." AS
             	SELECT t3.LIB_FAMILLE_PRODUIT,(SUM(OBJECTIF)) AS Marge_Objectif,(SUM(REEL)) AS Marge_Reel
-              FROM DIM_MAGASIN_STAR t1, transi".$token." t2, dim_famille_produit t3
+              FROM dim_magasin_star t1, transi".$token." t2, dim_famille_produit t3
               WHERE (t1.ID_MAGASIN = t2.ID_MAGASIN AND t2.ID_FAMILLE_PRODUIT = t3.ID_FAMILLE_PRODUIT AND INDICATEUR='MARGE')
               GROUP BY t3.LIB_FAMILLE_PRODUIT";
 
@@ -288,7 +288,7 @@ class functionAPI extends Model{
         $sql = "CREATE TEMPORARY TABLE histo_transi_prec".$token." as
           SELECT * from data_0
           where id_i=".$indic."
-          AND id_famille_produit in(select id_famille_produit from REQUETE_FAMILLE where CODE_famille ='".$famprod."')
+          AND id_famille_produit in(select id_famille_produit from requete_famille where CODE_famille ='".$famprod."')
           AND id_enseigne in(select id_enseigne from requete_enseigne where code_enseigne='".$enseigne."')
           AND id_temps in(select id_temps from requete_temps_0 where code='".$tempsprec."')
           AND id_magasin in(select id_magasin from requete_geo where code ='".$geo."')";
