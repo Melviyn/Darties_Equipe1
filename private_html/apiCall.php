@@ -135,19 +135,47 @@ $app->get('/getFaitsVentes/:token', function($token){
 });
 
 
-/**$app->get('/test/:token&id_mag&id_prod&id_temps&venteObj&VenteReel&CaObj&CaReel&MargeObj&MargeReel', function($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel){
+
+$app->get('/getGeo/:token', function($token){
   $app = \Slim\Slim::getInstance();
-      $faitVentes = functionAPI::setFaitsVentes($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel);
-      if($faitVentes) {
+      $geo = functionAPI::getGeo($token);
+      if($geo) {
           $app->response->setStatus(200);
           $app->response()->headers->set('Content-Type', 'application/json');
-          echo json_encode($faitVentes);
+          echo json_encode($geo);
       } else {
         $app->response()->setStatus(404);
         echo '{"error":{"text":"le token semble incorrect"}}';
       }
-});*/
-$app->get('/test/:token&:id_mag&:id_prod&:id_temps&:venteObj&:VenteReel&:CaObj&:CaReel&:MargeObj&:MargeReel', function($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel){
+});
+
+$app->get('/getEnseigne/:token', function($token){
+  $app = \Slim\Slim::getInstance();
+      $ens = functionAPI::getEnseigne($token);
+      if($ens) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($ens);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+});
+
+$app->get('/getIndicateur/:token', function($token){
+  $app = \Slim\Slim::getInstance();
+      $ens = functionAPI::getIndicateur($token);
+      if($ens) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($ens);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+});
+
+$app->get('/setFaitsVentes/:token&:id_mag&:id_prod&:id_temps&:venteObj&:VenteReel&:CaObj&:CaReel&:MargeObj&:MargeReel', function($token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel){
   $app = \Slim\Slim::getInstance();
   $obj = ORM::get_db();
       $faitVentes = functionAPI::setFaitsVentes($obj,$token,$id_mag,$id_prod,$id_temps,$vObj,$vReel,$cObj,$cReel,$mObj,$mReel);

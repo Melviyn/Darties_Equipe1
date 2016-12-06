@@ -43,14 +43,30 @@ class functionAPI extends Model{
     return $profil;
   }
 
-  public static function getDimTemps($token){
+  public static function getTemps($token){
     if(functionAPI::verifyToken($token)){
-      return ORM::for_table('dim_temps')->find_array();
+      return ORM::for_table('select_temps')->find_array();
     }else {
       return null;
     }
   }
 
+  public static function getEnseigne($token){
+    if(functionAPI::verifyToken($token)){
+      return ORM::for_table('select_enseigne')->find_array();
+    }else {
+      return null;
+    }
+  }
+
+
+    public static function getIndicateur($token){
+      if(functionAPI::verifyToken($token)){
+        return ORM::for_table('select_indicateur')->find_array();
+      }else {
+        return null;
+      }
+    }
   public static function getDimFam($token){
     if(functionAPI::verifyToken($token)){
       return ORM::for_table('dim_famille_produit')->find_array();
@@ -62,6 +78,14 @@ class functionAPI extends Model{
   public static function getFaitsVentes($token){
     if(functionAPI::verifyToken($token)){
       return ORM::for_table('faits_ventes_star')->find_array();
+    }else {
+      return null;
+    }
+  }
+
+  public static function getGeo($token){
+    if(functionAPI::verifyToken($token)){
+      return ORM::for_table('select_zone_geo')->find_array();
     }else {
       return null;
     }
