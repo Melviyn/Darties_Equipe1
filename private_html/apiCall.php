@@ -148,6 +148,19 @@ $app->get('/getGeo/:token', function($token){
       }
 });
 
+
+$app->get('/getTemps/:token', function($token){
+  $app = \Slim\Slim::getInstance();
+      $tps = functionAPI::getTemps($token);
+      if($tps) {
+          $app->response->setStatus(200);
+          $app->response()->headers->set('Content-Type', 'application/json');
+          echo json_encode($tps);
+      } else {
+        $app->response()->setStatus(404);
+        echo '{"error":{"text":"le token semble incorrect"}}';
+      }
+});
 $app->get('/getEnseigne/:token', function($token){
   $app = \Slim\Slim::getInstance();
       $ens = functionAPI::getEnseigne($token);
